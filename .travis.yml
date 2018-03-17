@@ -1,0 +1,26 @@
+language: bash
+services: docker
+
+cache: pip
+
+install:
+  - echo "BAMBOOHR_API_KEY=dummy" > .env
+  - echo "BAMBOOHR_SUBDOMAIN=dummy" >> .env
+  - pip install --user docker-compose
+
+script:
+  - docker-compose build
+  - docker-compose run --rm app pylint bamboo_blossom
+  - docker-compose run --rm -e BB_API_SECRET_KEY= app pytest tests
+
+before_deploy:
+  - docker login -u _ -p "${HEROKU_AUTH_TOKEN}" registry.heroku.com;
+  - docker tag bambooblossom_app registry.heroku.com/bamboo-blossom/web
+
+deploy:
+  - provider: script
+    script: "docker push registry.heroku.com/bamboo-blossom/web"
+    skip_cleanup: true
+    on:
+      repo: azavea/bamboo-blossom
+      branch: master
