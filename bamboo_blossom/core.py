@@ -1,8 +1,9 @@
 """Core classes utilized to wrap BambooHR objects."""
 
 import os
+import uuid
 
-from datetime import date, timedelta
+from datetime import date, datetime
 from dateutil.parser import parse
 
 from PyBambooHR import PyBambooHR
@@ -59,17 +60,17 @@ class Employee(object):
             str: The iCal event representation of an employee hire date.
         """
         current_year = date.today().year
-        day_after_hire_date = self.hire_date + timedelta(days=1)
 
         event = Event()
-        event.add('title', '{} {} (Started: {})'.format(
+        event.add('uid', uuid.uuid4())
+        event.add('summary', '{} {} (Started: {})'.format(
             self.preferred_name or self.first_name,
             self.last_name,
             self.hire_date.strftime('%Y-%m-%d')))
 
+        event.add('dtstamp',
+                  datetime(current_year, self.hire_date.month, self.hire_date.day))
         event.add('dtstart',
                   date(current_year, self.hire_date.month, self.hire_date.day))
-        event.add('dtend',
-                  date(current_year, day_after_hire_date.month, day_after_hire_date.day))
 
         return event.to_ical()

@@ -24,7 +24,7 @@ def populate(ttl=86400):
         ttl (int): Number of seconds to persist cache entries.
     """
     for employee in Company().get_employees():
-        LOGGER.debug('CACHE: Adding employee [%s]', employee.id)
+        LOGGER.info('CACHE: Adding employee [%s]', employee.id)
         CACHE.setex('employee:{}'.format(employee.id),
                     employee.to_ical(), ttl)
 
