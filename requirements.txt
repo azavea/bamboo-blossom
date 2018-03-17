@@ -1,0 +1,10 @@
+falcon
+gunicorn
+PyBambooHR
+icalendar
+click
+redis
+hiredis
+pytest
+mockredispy
+pylint

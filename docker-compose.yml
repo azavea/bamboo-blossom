@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    build: .
+    env_file: .env
+    links:
+      - cache
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app
+    command: gunicorn --bind 0.0.0.0:8000 --capture-output --reload bamboo_blossom.app:api
+
+  cache:
+    image: redis:4-alpine
