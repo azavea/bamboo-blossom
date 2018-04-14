@@ -15,7 +15,7 @@ script:
 
 before_deploy:
   - docker login -u _ -p "${HEROKU_AUTH_TOKEN}" registry.heroku.com;
-  - docker tag bambooblossom_app registry.heroku.com/bamboo-blossom/web
+  - docker tag bamboo-blossom_app registry.heroku.com/bamboo-blossom/web
 
 deploy:
   - provider: script
