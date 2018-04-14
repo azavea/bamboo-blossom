@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/azavea/bamboo-blossom.svg?branch=master)](https://travis-ci.org/azavea/bamboo-blossom)
 
-A web application that publishes BambooHR employee hire dates to an iCal feed.
+A web application that publishes BambooHR employee hire dates to an iCal feed. Please be aware that this functionality already comes bundled as a feature in BambooHR.
 
 ## Getting Started
 
